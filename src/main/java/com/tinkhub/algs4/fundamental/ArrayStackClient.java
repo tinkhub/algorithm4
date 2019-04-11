@@ -3,7 +3,7 @@ package com.tinkhub.algs4.fundamental;
 import com.tinkhub.algs4.utils.StdIn;
 import com.tinkhub.algs4.utils.StdOut;
 
-public class StackClient {
+public class ArrayStackClient {
     public static void main(String[] args)
     {
         ResizingArrayStack<String> s;
