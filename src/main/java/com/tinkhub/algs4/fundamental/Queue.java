@@ -2,9 +2,10 @@ package com.tinkhub.algs4.fundamental;
 
 import java.util.Iterator;
 
-public class Stack<Item> implements Iterable<Item>
+public class Queue<Item> implements Iterable<Item>
 {
     private Node first;
+    private Node last;
     private int N;
 
     private class Node
@@ -21,19 +22,22 @@ public class Stack<Item> implements Iterable<Item>
         return N;
     }
 
-    public void push(Item item) {
-        Node oldfirst = first;
-        first = new Node();
-        first.item = item;
-        first.next = oldfirst;
+    public void enqueue(Item item) {
+        Node oldlast = last;
+        last = new Node();
+        last.item = item;
+        last.next = null;
+        if (isEmpty()) first = last;
+        else oldlast.next  = last;
         N++;
     }
 
-    public Item pop() {
-        Item temp = first.item;
+    public Item dequeue() {
+        Item item = first.item;
         first = first.next;
+        if (isEmpty()) last = null;
         N--;
-        return temp;
+        return item;
     }
 
     @Override
@@ -43,11 +47,11 @@ public class Stack<Item> implements Iterable<Item>
 
     private class ListIterator implements Iterator<Item>
     {
-        private Node current = first;
+        private Node current = last;
 
         @Override
         public boolean hasNext() {
-            return current.next != null;
+            return current != null ;
         }
 
         @Override
