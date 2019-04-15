@@ -2,13 +2,17 @@ package com.tinkhub.algs4.fundamental;
 
 import java.util.Iterator;
 
-public class Stack<Item> implements Iterable<Item>
+/**
+ * 1.3.32 Steque. A stack-ended queue or steque is a data type that supports push, pop, and
+ * enqueue. Articulate an API for this ADT. Develop a linked-list-based implementation.
+ */
+public class Steque<Item> implements Iterable<Item>
 {
     private Node first;
+    private Node last;
     private int N;
 
-    private class Node
-    {
+    private class Node {
         Item item;
         Node next;
     }
@@ -26,6 +30,7 @@ public class Stack<Item> implements Iterable<Item>
         first = new Node();
         first.item = item;
         first.next = oldfirst;
+        if (last == null) last = first;
         N++;
     }
 
@@ -36,8 +41,14 @@ public class Stack<Item> implements Iterable<Item>
         return temp;
     }
 
-    public Item peek() {
-        return first.item;
+    public void enqueue(Item item) {
+        Node oldlast = last;
+        last = new Node();
+        last.item = item;
+        last.next = null;
+        if (first == null) first = last;
+        else oldlast.next = last;
+        N++;
     }
 
     @Override
@@ -45,13 +56,12 @@ public class Stack<Item> implements Iterable<Item>
         return new ListIterator();
     }
 
-    private class ListIterator implements Iterator<Item>
-    {
+    private class ListIterator implements Iterator<Item> {
         private Node current = first;
 
         @Override
         public boolean hasNext() {
-            return current != null;
+            return current.next != null;
         }
 
         @Override
