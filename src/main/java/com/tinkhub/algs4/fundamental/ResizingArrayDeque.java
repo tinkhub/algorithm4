@@ -39,6 +39,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         left = left % a.length;
         Item item = a[left];
         N--;
+        if (N > 0 && N == a.length/4) resize(a.length/2);
         return item;
     }
     public void pushRight(Item item) {
@@ -53,6 +54,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
         if (right < 0) right = a.length - 1;
         Item item = a[right];
         N--;
+        if (N > 0 && N == a.length/4) resize(a.length/2);
         return item;
     }
     private void resize(int max) {
@@ -67,7 +69,7 @@ public class ResizingArrayDeque<Item> implements Iterable<Item> {
 
     @Override
     public Iterator<Item> iterator() {
-        return null;
+        return new DequeIterator();
     }
 
     private class DequeIterator implements Iterator<Item>
